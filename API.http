@@ -1,0 +1,4 @@
+GET http://localhost:8080/api/content/all
+
+##
+GET http://localhost:8080/api/content/99
