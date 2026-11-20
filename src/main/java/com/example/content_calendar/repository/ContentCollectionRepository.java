@@ -45,4 +45,13 @@ public class ContentCollectionRepository {
 
         contents.add(c);
     }
+
+    public void save(Content c) {
+        contents.removeIf(e -> e.id().equals(c.id()));
+        contents.add(c);
+    }
+
+    public void delete(Integer id) {
+        contents.removeIf(e -> e.id().equals(id));
+    }
 }

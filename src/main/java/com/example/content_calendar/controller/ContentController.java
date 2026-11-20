@@ -3,14 +3,22 @@ package com.example.content_calendar.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.content_calendar.model.Content;
 import com.example.content_calendar.repository.ContentCollectionRepository;
+
+import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -33,5 +41,21 @@ public class ContentController {
         return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Content not found!"));
     }
     
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("")
+    public String postMethodName(@Valid @RequestBody Content c) {
+        
+        repository.save(c);
+        
+        return "Content created!";
+    }
+    
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Integer id) {
+        
+        repository.delete(id);
+        return "Content deleted!";
+    }
     
 }
